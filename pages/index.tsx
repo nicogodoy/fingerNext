@@ -71,59 +71,74 @@
 
 // export default Home
 
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
-import { useState } from 'react'
-import md5 from 'md5'
-
+import type { NextPage } from "next";
+import Head from "next/head";
+import { useVisitorData } from "@fingerprintjs/fingerprintjs-pro-react";
+import { useState, useEffect } from "react";
+import md5 from "md5";
 
 const Home: NextPage = () => {
-  const [extendedResult, updateExtendedResult] = useState(false)
-  const { isLoading, error, data, getData } = useVisitorData({ extendedResult }, { immediate: true })
-  console.log(data?.visitorId)
+  const [extendedResult, updateExtendedResult] = useState(false);
+  const [dataId, setDataId] = useState<any>();
+  const { isLoading, error, data, getData } = useVisitorData(
+    { extendedResult },
+    { immediate: true }
+  );
+  //console.log(data?.visitorId);
   const reloadData = () => {
-    getData({ ignoreCache: true })
-  }
+    getData({ ignoreCache: true });
+  };
 
-  const onChangeExtendedResult = (e:any) => {
-    updateExtendedResult(e.target.checked)
-  }
-    const returnHash = () => {
+  const onChangeExtendedResult = (e: any) => {
+    updateExtendedResult(e.target.checked);
+  };
+
+  useEffect(() => {
+    console.log(dataId);
+  });
+  const returnHash = () => {
     if (data) {
-      const hash = md5(JSON.stringify(data, null, 2))
-      console.log(hash)
+      const hash = md5(data);
+      setDataId(hash);
+      //console.log(hash);
     }
-  }
+  };
 
   return (
     <div>
       <Head>
         <title>FingerprintJS Pro NextJS Demo</title>
-        <meta name='description' content='Check if fingerprintjs-pro-react integration works with NextJS SSR' />
-        <link rel='icon' href='/favicon.ico' />
+        <meta
+          name="description"
+          content="Check if fingerprintjs-pro-react integration works with NextJS SSR"
+        />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <h1>FingerprintJS Pro NextJS Demo</h1>
       <div>
-        <div >
-          <button onClick={reloadData} type='button'>
+        <div>
+          <button onClick={reloadData} type="button">
             Reload data
           </button>
           <label>
-            <input type='checkbox' onChange={onChangeExtendedResult} checked={extendedResult} />
+            <input
+              type="checkbox"
+              onChange={onChangeExtendedResult}
+              checked={extendedResult}
+            />
             Extended result
           </label>
         </div>
         <h4>
-          VisitorId: <span >{isLoading ? 'Loading...' : data?.visitorId}</span>
+          VisitorId: <span>{isLoading ? "Loading..." : data?.visitorId}</span>
         </h4>
         <h4>Full visitor data:</h4>
-        <pre >{error ? error.message : JSON.stringify(data, null, 2)}</pre>
+        <pre>{error ? error.message : JSON.stringify(data, null, 2)}</pre>
         <button onClick={returnHash}>Enviar</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
