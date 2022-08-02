@@ -86,12 +86,12 @@ const Home: NextPage = () => {
     getData({ ignoreCache: true })
   }
 
-  const onChangeExtendedResult = (e) => {
+  const onChangeExtendedResult = (e:any) => {
     updateExtendedResult(e.target.checked)
   }
     const returnHash = () => {
     if (data) {
-      const hash = md5(data)
+      const hash = md5(JSON.stringify(data, null, 2))
       console.log(hash)
     }
   }

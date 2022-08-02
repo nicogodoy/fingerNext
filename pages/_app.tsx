@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { FpjsProvider } from '@fingerprintjs/fingerprintjs-pro-react'
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }:any) {
   return (
     <FpjsProvider
       loadOptions={{
@@ -14,4 +14,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+export default App
