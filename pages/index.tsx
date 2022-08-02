@@ -98,7 +98,7 @@ const Home: NextPage = () => {
   });
   const returnHash = () => {
     if (data) {
-      const hash = md5(JSON.stringify(data, null, 2));
+      const hash = md5(data.visitorId);
       setDataId(hash);
     }
   };
