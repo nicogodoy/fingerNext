@@ -84,7 +84,7 @@ const Home: NextPage = () => {
     { extendedResult },
     { immediate: true }
   );
-  //console.log(data?.visitorId);
+  console.log(data?.visitorId);
   const reloadData = () => {
     getData({ ignoreCache: true });
   };
@@ -98,7 +98,7 @@ const Home: NextPage = () => {
   });
   const returnHash = () => {
     if (data) {
-      const hash = md5(data);
+      const hash = md5(data?.visitorId);
       setDataId(hash);
       //console.log(hash);
     }
