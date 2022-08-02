@@ -93,14 +93,13 @@ const Home: NextPage = () => {
     updateExtendedResult(e.target.checked);
   };
 
-  useEffect(() => {
+  useEffect(() => { 
     console.log(dataId);
   });
   const returnHash = () => {
     if (data) {
       const hash = md5(data?.visitorId);
       setDataId(hash);
-      //console.log(hash);
     }
   };
 
