@@ -79,12 +79,11 @@ import md5 from "md5";
 
 const Home: NextPage = () => {
   const [extendedResult, updateExtendedResult] = useState(false);
-  const [dataId, setDataId] = useState<any>();
   const { isLoading, error, data, getData } = useVisitorData(
     { extendedResult },
     { immediate: true }
   );
-  console.log(data?.visitorId);
+
   const reloadData = () => {
     getData({ ignoreCache: true });
   };
@@ -93,13 +92,13 @@ const Home: NextPage = () => {
     updateExtendedResult(e.target.checked);
   };
 
-  useEffect(() => { 
-    console.log(dataId);
-  });
+  useEffect(() => {
+    console.log(data?.visitorId);
+  }, [data?.visitorId]);
   const returnHash = () => {
     if (data) {
       const hash = md5(data.visitorId);
-      setDataId(hash);
+      console.log(hash);
     }
   };
 
